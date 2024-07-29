@@ -1,0 +1,200 @@
+{
+	"info": {
+		"_postman_id": "7656ec92-0399-4d8e-9a93-a7ffdb4fd05a",
+		"name": "demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23905513"
+	},
+	"item": [
+		{
+			"name": "saveUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"prithvi_2000\",\r\n    \"name\": \"Prithviraj\",\r\n    \"address\": \"Gadgi\",\r\n    \"phoneNo\": 9632029678,\r\n    \"email\": \"prithvirajgadgi@gmail.com\",\r\n    \"password\": \"2000\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "loginUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"prithvi_2000\",\r\n    \"password\": \"2000\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logoutUser",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJqdGkiOiIyNmJmOGUxMy04MGNmLTRlNDYtYWM1OS0xZDc1ZmRhYjIxYjQiLCJzdWIiOiJwcml5YV8xMjM0IiwiaXNzIjoiRGVtbyBTcHJpbmdCb290IEFwcGxpY2F0aW9uIiwiaWF0IjoxNzIyMjUzODI5LCJleHAiOjE3MjIyNTQ0Mjl9.t3OcdVWVlBrLZ992eNv_JoKZyZFtfVTn1bOU25xgglIA2sVeL3JDirwcPePLedph",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/user/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getUser",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJqdGkiOiIzMzUzYzg1Zi1iM2VkLTQ4ZWYtODMzZi05NDlhNWMwZmIxYTAiLCJzdWIiOiJwcml0aHZpXzIwMDAiLCJpc3MiOiJEZW1vIFNwcmluZ0Jvb3QgQXBwbGljYXRpb24iLCJpYXQiOjE3MjIyNTQ2NzgsImV4cCI6MTcyMjI1NTI3OH0.SGYdHNT3UaZjEtyuN7DQ7YaulPgvuZWgX7qQCAzrfplhGKEcFzap3soQEunfdQKO",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/user/get/prithvi_2000",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"get",
+						"prithvi_2000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateUser",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJqdGkiOiIzMzUzYzg1Zi1iM2VkLTQ4ZWYtODMzZi05NDlhNWMwZmIxYTAiLCJzdWIiOiJwcml0aHZpXzIwMDAiLCJpc3MiOiJEZW1vIFNwcmluZ0Jvb3QgQXBwbGljYXRpb24iLCJpYXQiOjE3MjIyNTQ2NzgsImV4cCI6MTcyMjI1NTI3OH0.SGYdHNT3UaZjEtyuN7DQ7YaulPgvuZWgX7qQCAzrfplhGKEcFzap3soQEunfdQKO",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Prithvi\",\r\n    \"address\": \"Bidar\",\r\n    \"phoneNo\": \"9632029678\",\r\n    \"email\": \"prithvi@gmail.com\",\r\n    \"password\": \"Gadgi@2000\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/update/prithvi_2000",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"update",
+						"prithvi_2000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteUser",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJqdGkiOiIzMzUzYzg1Zi1iM2VkLTQ4ZWYtODMzZi05NDlhNWMwZmIxYTAiLCJzdWIiOiJwcml0aHZpXzIwMDAiLCJpc3MiOiJEZW1vIFNwcmluZ0Jvb3QgQXBwbGljYXRpb24iLCJpYXQiOjE3MjIyNTQ2NzgsImV4cCI6MTcyMjI1NTI3OH0.SGYdHNT3UaZjEtyuN7DQ7YaulPgvuZWgX7qQCAzrfplhGKEcFzap3soQEunfdQKO",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/user/delete/prithvi_2000",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"delete",
+						"prithvi_2000"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
