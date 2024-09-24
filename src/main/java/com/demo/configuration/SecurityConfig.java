@@ -25,7 +25,11 @@ public class SecurityConfig {
     private final SecurityFilter securityFilter;
 
     @Autowired
-    public SecurityConfig(UserService userService, PasswordEncoder passwordEncoder, InvalidUserAuthenticationEntryPoint authenticationEntryPoint, SecurityFilter securityFilter) {
+    public SecurityConfig(
+            UserService userService,
+            PasswordEncoder passwordEncoder,
+            InvalidUserAuthenticationEntryPoint authenticationEntryPoint,
+            SecurityFilter securityFilter) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.authenticationEntryPoint = authenticationEntryPoint;
@@ -34,27 +38,31 @@ public class SecurityConfig {
 
     @Bean
     protected SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .csrf(AbstractHttpConfigurer::disable)
-            .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                    .requestMatchers("/user/save", "/user/login", "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/actuator/**").permitAll()
-                    .anyRequest().authenticated()
-            )
-            .exceptionHandling(exceptionHandling -> exceptionHandling
-                    .authenticationEntryPoint(authenticationEntryPoint)
-            )
-            .sessionManagement(sessionManagement -> sessionManagement
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            )
-            .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
+        http.csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(authorizeRequests -> authorizeRequests
+                        .requestMatchers(
+                                "/user/save",
+                                "/user/login",
+                                "/swagger-ui.html",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/actuator/**")
+                        .permitAll()
+                        .anyRequest()
+                        .authenticated())
+                .exceptionHandling(
+                        exceptionHandling -> exceptionHandling.authenticationEntryPoint(authenticationEntryPoint))
+                .sessionManagement(
+                        sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
-        AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
+        AuthenticationManagerBuilder authenticationManagerBuilder =
+                http.getSharedObject(AuthenticationManagerBuilder.class);
         authenticationManagerBuilder.userDetailsService(userService).passwordEncoder(passwordEncoder);
         return authenticationManagerBuilder.build();
     }
-
 }

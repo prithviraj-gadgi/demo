@@ -22,8 +22,6 @@ public class SwaggerConfig {
                                 .name("Prithviraj Gadgi")
                                 .url("https://www.linkedin.com/in/prithviraj-gadgi-44694515a/")
                                 .email("prithvirajgadgi@gmail.com"))
-                        .license(new License()
-                                .name("Apache 2.0")
-                                .url("http://springdoc.org")));
+                        .license(new License().name("Apache 2.0").url("http://springdoc.org")));
     }
 }

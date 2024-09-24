@@ -4,20 +4,20 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import jakarta.xml.bind.DatatypeConverter;
-import org.springframework.stereotype.Component;
-
-import javax.crypto.SecretKey;
 import java.util.Base64;
 import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
+import javax.crypto.SecretKey;
+import org.springframework.stereotype.Component;
 
 @Component
 public class JWTUtil {
 
-    private static final String SECRET_KEY = DatatypeConverter.printHexBinary(Jwts.SIG.HS256.key().build().getEncoded());
+    private static final String SECRET_KEY =
+            DatatypeConverter.printHexBinary(Jwts.SIG.HS256.key().build().getEncoded());
     private final Set<String> blacklistedTokens = ConcurrentHashMap.newKeySet();
 
     private SecretKey signingKey() {
@@ -25,7 +25,7 @@ public class JWTUtil {
         return Keys.hmacShaKeyFor(decodedKey);
     }
 
-    //Generate Token
+    // Generate Token
     public String generateToken(String username) {
         return Jwts.builder()
                 .id(UUID.randomUUID().toString())
@@ -37,7 +37,7 @@ public class JWTUtil {
                 .compact();
     }
 
-    //Read Token
+    // Read Token
     public Claims getClaims(String token) {
         return Jwts.parser()
                 .verifyWith(signingKey())
@@ -46,35 +46,34 @@ public class JWTUtil {
                 .getPayload();
     }
 
-    //Read subject/username
+    // Read subject/username
     public String getUsername(String token) {
         return getClaims(token).getSubject();
     }
 
-    //Get Exp date
+    // Get Exp date
     public Date getExpDate(String token) {
         return getClaims(token).getExpiration();
     }
 
-    //Validate Exp date of the token
+    // Validate Exp date of the token
     public boolean isTokenExpired(String token) {
         return getExpDate(token).before(new Date(System.currentTimeMillis()));
     }
 
-    //Blacklist token after logout
+    // Blacklist token after logout
     public void blacklistToken(String token) {
         blacklistedTokens.add(token);
     }
 
-    //Check if token is blacklisted
+    // Check if token is blacklisted
     public boolean isTokenBlacklisted(String token) {
         return blacklistedTokens.contains(token);
     }
 
-    //Validate username passed in token and username from database, and also token expDate
+    // Validate username passed in token and username from database, and also token expDate
     public boolean validateToken(String token, String username) {
         String tokenUserName = getUsername(token);
         return (username.equals(tokenUserName) && !isTokenExpired(token) && !isTokenBlacklisted(token));
     }
-
 }

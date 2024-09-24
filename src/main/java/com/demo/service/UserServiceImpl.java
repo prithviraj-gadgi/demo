@@ -5,16 +5,15 @@ import com.demo.exception.ResourceAlreadyExistsException;
 import com.demo.exception.UserNotFoundException;
 import com.demo.model.User;
 import com.demo.repository.UserRepository;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -93,7 +92,7 @@ public class UserServiceImpl implements UserService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = getUser(username);
 
-        //Creating a dummy set of authorities, need to add roles User model to have authorities
+        // Creating a dummy set of authorities, need to add roles User model to have authorities
         Set<String> roles = new HashSet<>();
         roles.add("ADMIN");
         roles.add("USER");
@@ -101,8 +100,6 @@ public class UserServiceImpl implements UserService {
         return new org.springframework.security.core.userdetails.User(
                 username,
                 user.getPassword(),
-                roles.stream().map(SimpleGrantedAuthority::new).toList()
-        );
+                roles.stream().map(SimpleGrantedAuthority::new).toList());
     }
-
 }

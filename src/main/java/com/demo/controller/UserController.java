@@ -9,14 +9,13 @@ import com.demo.utility.JWTUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
 
 @RestController
 @RequestMapping("/user")
@@ -44,7 +43,8 @@ public class UserController {
     @Operation(summary = "Login user", description = "Endpoint to login user")
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> loginUser(@Valid @RequestBody UserLogin userLogin) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userLogin.getUsername(), userLogin.getPassword()));
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(userLogin.getUsername(), userLogin.getPassword()));
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setToken(jwtUtil.generateToken(userLogin.getUsername()));
         loginResponse.setMessage("Welcome, login successful!");
@@ -60,7 +60,8 @@ public class UserController {
 
     @Operation(summary = "Update user", description = "Endpoint to update the user")
     @PatchMapping("/update/{userName}")
-    public ResponseEntity<User> updateUser(@PathVariable("userName") String userName, @Valid @RequestBody UpdateUser updateUser) {
+    public ResponseEntity<User> updateUser(
+            @PathVariable("userName") String userName, @Valid @RequestBody UpdateUser updateUser) {
         User user = userService.updateUser(userName, updateUser);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }

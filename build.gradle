@@ -50,6 +50,14 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
+spotless {
+    java {
+        formatAnnotations()
+        removeUnusedImports()
+        palantirJavaFormat()
+    }
+}
+
 jacoco {
     toolVersion = "0.8.12"
 }
