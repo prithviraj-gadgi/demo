@@ -26,6 +26,5 @@ public class SwaggerConfig {
                                 .name("Apache 2.0")
                                 .url("http://springdoc.org")
                         )
-                );
-    }
-}
+                )   ;
+    }}
